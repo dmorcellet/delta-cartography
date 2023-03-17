@@ -5,15 +5,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import delta.carto.utils.CartoLoggers;
-
 /**
  * Reader for browse geodata files.
  * @author DAM
  */
 public class BrowseReader
 {
-  private static final Logger _logger=CartoLoggers.getCartoLogger();
+  private static final Logger LOGGER=Logger.getLogger(BrowseReader.class);
 
   private static final byte DELIMITER=(byte)';';
   private static final byte DELIMITER2=(byte)'=';
@@ -94,7 +92,7 @@ public class BrowseReader
     }
     catch(IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
     }
   }
 

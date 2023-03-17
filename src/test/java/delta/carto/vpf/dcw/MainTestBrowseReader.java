@@ -8,15 +8,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import delta.carto.utils.CartoLoggers;
-
 /**
  * Main class used to test the browse reader.
  * @author DAM
  */
 public class MainTestBrowseReader
 {
-  private static final Logger _logger=CartoLoggers.getCartoLogger();
+  private static final Logger LOGGER=Logger.getLogger(MainTestBrowseReader.class);
 
   /**
    * Constructor.
@@ -75,7 +73,7 @@ public class MainTestBrowseReader
     }
     catch(IOException e)
     {
-      _logger.error("",e);
+      LOGGER.error("",e);
     }
   }
 
