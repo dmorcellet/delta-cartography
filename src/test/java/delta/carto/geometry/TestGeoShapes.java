@@ -5,15 +5,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+
 import delta.carto.geodesy.GeodeticDatum;
 import delta.carto.geodesy.GeodeticDatumRegister;
-import delta.carto.geometry.Geo2DPoint;
-import delta.carto.geometry.GeoPolygon;
-import delta.carto.geometry.GeoRectangle;
-import delta.carto.geometry.HeadingDistance;
-import delta.carto.geometry.Tools;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * Unit test class for geographic shapes.

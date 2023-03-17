@@ -1,7 +1,6 @@
 package delta.carto.projection;
 
 import junit.framework.TestCase;
-import delta.carto.projection.MercatorProjection;
 
 /**
  * Unit test class for the Mercator projection implementation.
