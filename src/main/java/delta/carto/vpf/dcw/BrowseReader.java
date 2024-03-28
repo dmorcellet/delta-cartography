@@ -35,7 +35,7 @@ public class BrowseReader
   private String readStringUntilDelimiter(DataInputStream dis, byte delimiter)
       throws IOException
   {
-    StringBuffer sb=new StringBuffer();
+    StringBuilder sb=new StringBuilder();
     byte b;
     while(true)
     {

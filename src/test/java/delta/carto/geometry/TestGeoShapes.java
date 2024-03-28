@@ -34,8 +34,10 @@ public class TestGeoShapes extends TestCase
 
     Geo2DPoint geo=new Geo2DPoint(12, 13);
     Geo2DPoint geoRef=new Geo2DPoint(12, 13, datum);
-    Assert.assertSame(datum,geoRef.getDatum());
     System.out.println("geoRef="+geoRef);
+    Assert.assertSame(datum,geoRef.getDatum());
+    Assert.assertEquals(12, geoRef.getLatitude(),0.0001);
+    Assert.assertEquals(13, geoRef.getLongitude(),0.0001);
     GeoPolygon geoPolygon=new GeoPolygon();
     geoPolygon.addPoint(4, 5);
     geoPolygon.addPoint(2, 3);
@@ -43,6 +45,10 @@ public class TestGeoShapes extends TestCase
     Assert.assertEquals(3,geoPolygon.getNumberOfPoints());
     GeoRectangle geoRect=new GeoRectangle(2, 3, 4, 5);
     System.out.println("geoRect="+geoRect);
+    Assert.assertEquals(2, geoRect.getMinLatitude(),0.0001);
+    Assert.assertEquals(4, geoRect.getMaxLatitude(),0.0001);
+    Assert.assertEquals(3, geoRect.getMinLongitude(),0.0001);
+    Assert.assertEquals(5, geoRect.getMaxLongitude(),0.0001);
   }
 
   /**
@@ -55,14 +61,18 @@ public class TestGeoShapes extends TestCase
       Geo2DPoint geo=new Geo2DPoint(12, 13);
       GeoPolygon ellipse=Tools.orthodromicEllipseSegmentation(geo, 100, 30, 45, nbPoints);
       System.out.println("Ellipse : "+ellipse);
+      Assert.assertEquals(nbPoints,ellipse.getNumberOfPoints());
       HeadingDistance hd=Tools.orthodromicHeadingDistance(geo, ellipse.getPoint(nbPoints-1));
       System.out.println("HeadingDistance : "+hd);
+      Assert.assertEquals(324,hd.getHeading(),0.01);
+      Assert.assertEquals(30.34,hd.getDistance(),0.01);
     }
 
     {
       Geo2DPoint geo=new Geo2DPoint(12, 13);
-      GeoPolygon arc=Tools.orthodromicArcSegmentation(geo, 100, 30, 45, nbPoints);
+      GeoPolygon arc=Tools.orthodromicArcSegmentation(geo, 100, 30, 45, nbPoints-1);
       System.out.println("Arc : "+arc);
+      Assert.assertEquals(nbPoints,arc.getNumberOfPoints());
     }
   }
 

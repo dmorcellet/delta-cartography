@@ -46,9 +46,18 @@ public class MercatorProjection
    */
   public void transform(double[] x, double[] y)
   {
-    assert x!=null;assert y!=null;
-    assert x.length==y.length;
-
+    if (x==null)
+    {
+      throw new IllegalArgumentException("x null");
+    }
+    if (y==null)
+    {
+      throw new IllegalArgumentException("y null");
+    }
+    if (x.length!=y.length)
+    {
+      throw new IllegalArgumentException("Mismatch of x and y length: "+x.length+"!="+y.length);
+    }
     int n=x.length;
     for(int i=0;i<n;i++)
     {

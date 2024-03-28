@@ -82,7 +82,14 @@ public class GeoRectangle
 
   private void init(Geo2DPoint p1, Geo2DPoint p2, GeodeticDatum datum)
   {
-    // todo Check datum
+    if (p1.getDatum()!=datum)
+    {
+      throw new IllegalArgumentException("Bad datum: "+datum+"!="+p1.getDatum());
+    }
+    if (p2.getDatum()!=datum)
+    {
+      throw new IllegalArgumentException("Bad datum: "+datum+"!="+p2.getDatum());
+    }
     double lat1=p1.getLatitude();
     double long1=p1.getLongitude();
     double lat2=p2.getLatitude();
@@ -197,6 +204,7 @@ public class GeoRectangle
    * @return <code>true</code> if this object is the same as the
    * <code>o</code> argument; <code>false</code> otherwise.
    */
+  @Override
   public boolean equals(Object o)
   {
     if (!(o instanceof GeoRectangle)) return false;
@@ -205,8 +213,13 @@ public class GeoRectangle
     if (r._maxLatitude!=_maxLatitude) return false;
     if (r._minLatitude!=_minLatitude) return false;
     if (r._maxLongitude!=_maxLongitude) return false;
-    if (r._minLongitude!=_minLongitude) return false;
-    return true;
+    return (r._minLongitude==_minLongitude);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return _datum.hashCode()+Double.hashCode(_maxLatitude)+Double.hashCode(_maxLongitude)+Double.hashCode(_minLongitude)+Double.hashCode(_minLatitude);
   }
 
   /**
@@ -217,7 +230,7 @@ public class GeoRectangle
    */
   public String toString()
   {
-    StringBuffer sb=new StringBuffer();
+    StringBuilder sb=new StringBuilder();
     sb.append('(');
     sb.append(_minLatitude);
     sb.append(',');

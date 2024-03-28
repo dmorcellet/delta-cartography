@@ -98,7 +98,10 @@ public class GeoPolygon
    */
   public void setPoint(Geo2DPoint point, int pointIndex)
   {
-    // todo Check datum
+    if (point.getDatum()!=_datum)
+    {
+      throw new IllegalArgumentException("Bad datum: "+point.getDatum()+"!="+_datum);
+    }
     _latitudes[pointIndex]=point.getLatitude();
     _longitudes[pointIndex]=point.getLongitude();
   }
@@ -122,7 +125,10 @@ public class GeoPolygon
    */
   public void addPoint(Geo2DPoint point)
   {
-    // todo Check datum
+    if (point.getDatum()!=_datum)
+    {
+      throw new IllegalArgumentException("Bad datum: "+point.getDatum()+"!="+_datum);
+    }
     ensureSize(_nbPoints+1,true);
     _latitudes[_nbPoints]=point.getLatitude();
     _longitudes[_nbPoints]=point.getLongitude();
@@ -236,6 +242,12 @@ public class GeoPolygon
     return true;
   }
 
+  @Override
+  public int hashCode()
+  {
+    return _datum.hashCode()+_nbPoints+_latitudes.length;
+  }
+
   /**
    * Returns a string representation of the object. Overrides the
    * <tt>toString</tt> method defined in class <tt>Object</tt> to offer a
@@ -244,7 +256,7 @@ public class GeoPolygon
    */
   public String toString()
   {
-    StringBuffer sb=new StringBuffer();
+    StringBuilder sb=new StringBuilder();
     sb.append('(');
     sb.append(_nbPoints);
     sb.append(" pts) ");

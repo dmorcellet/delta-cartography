@@ -78,6 +78,7 @@ public class Geo3DPoint extends Geo2DPoint
    * @param out stream to write to.
    * @throws IOException may be raised while using the <code>out</code> stream.
    */
+  @Override
   public void write(DataOutputStream out) throws IOException
   {
     super.write(out);
@@ -90,6 +91,7 @@ public class Geo3DPoint extends Geo2DPoint
    * @param in stream to read from.
    * @throws IOException may be raised while using the <code>in</code> stream.
    */
+  @Override
   public void read(DataInputStream in) throws IOException
   {
     super.read(in);
@@ -102,24 +104,31 @@ public class Geo3DPoint extends Geo2DPoint
    * @return <code>true</code> if this object is the same as the
    * <code>o</code> argument; <code>false</code> otherwise.
    */
+  @Override
   public boolean equals(Object o)
   {
     if (!(o instanceof Geo3DPoint)) return false;
     Geo3DPoint p=(Geo3DPoint)o;
     if (!super.equals(p)) return false;
-    if (p.getAltitude()!=_altitude) return false;
-    return true;
+    return (p.getAltitude()==_altitude);
   }
-  
+
+  @Override
+  public int hashCode()
+  {
+    return super.hashCode()+Double.hashCode(_altitude);
+  }
+
   /**
    * Returns a string representation of the object. Overrides the
    * <tt>toString</tt> method defined in class <tt>Object</tt> to offer a
    * displayable version of this object.
    * @return a string representation of the object.
    */
+  @Override
   public String toString()
   {
-    StringBuffer sb=new StringBuffer();
+    StringBuilder sb=new StringBuilder();
     sb.append('(');
     sb.append(getLatitude());
     sb.append(',');

@@ -46,7 +46,7 @@ public abstract class Tools
       }
       else
       {
-        ret=3*Math.PI/2-Math.atan(dy/dy);
+        ret=3*Math.PI/2-Math.atan(dy/dx);
       }
     }
     ret=Conversions.radiansToDegrees(ret);

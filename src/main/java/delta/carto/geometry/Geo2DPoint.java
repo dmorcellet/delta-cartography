@@ -106,23 +106,29 @@ public class Geo2DPoint
     String datumID=in.readUTF();
     _datum=GeodeticDatumRegister.getInstance().getGeodeticDatumByName(datumID);
   }
-  
+
   /**
    * Indicates whether some other object is "equal to" this one.
    * @param o the object with which to compare.
    * @return <code>true</code> if this object is the same as the
    * <code>o</code> argument; <code>false</code> otherwise.
    */
+  @Override
   public boolean equals(Object o)
   {
   	if (!(o instanceof Geo2DPoint)) return false;
   	Geo2DPoint p=(Geo2DPoint)o;
   	if (p.getDatum()!=_datum) return false;
   	if (p.getLatitude()!=_latitude) return false;
-  	if (p.getLongitude()!=_longitude) return false;
-  	return true;
+  	return (p.getLongitude()==_longitude);
   }
-  
+
+  @Override
+  public int hashCode()
+  {
+    return _datum.hashCode()+Double.hashCode(_latitude)+Double.hashCode(_longitude);
+  }
+
   /**
    * Returns a string representation of the object. Overrides the
    * <tt>toString</tt> method defined in class <tt>Object</tt> to offer a
@@ -131,7 +137,7 @@ public class Geo2DPoint
    */
   public String toString()
   {
-  	StringBuffer sb=new StringBuffer();
+  	StringBuilder sb=new StringBuilder();
   	sb.append('(');
   	sb.append(_latitude);
   	sb.append(',');
